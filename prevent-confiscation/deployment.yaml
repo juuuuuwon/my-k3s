@@ -15,15 +15,12 @@ spec:
     spec:
       containers:
         - name: cpu-stress
-          image: polinux/stress-ng
+          image: alpine:3.19
+          command: ["/bin/sh", "-c"]
           args:
-            - "stress-ng"
-            - "--cpu"
-            - "1"
-            - "--cpu-method"
-            - "all"
-            - "--timeout"
-            - "0"
+            - |
+              apk add --no-cache stress-ng && \
+              stress-ng --cpu 1 --cpu-method all --timeout 0
           resources:
             limits:
               cpu: "1"
