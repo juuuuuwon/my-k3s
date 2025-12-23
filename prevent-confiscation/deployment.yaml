@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: prevent-confiscation
+  name: cpu-stress
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cpu-stress
+  template:
+    metadata:
+      labels:
+        app: cpu-stress
+    spec:
+      containers:
+        - name: cpu-stress
+          image: polinux/stress-ng
+          args:
+            - "stress-ng"
+            - "--cpu"
+            - "1"
+            - "--cpu-method"
+            - "all"
+            - "--timeout"
+            - "0"
+          resources:
+            limits:
+              cpu: "1"
+              memory: "1Gi"
