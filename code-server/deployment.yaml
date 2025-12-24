@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: code-server
+  namespace: code-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: code-server
+  template:
+    metadata:
+      labels:
+        app: code-server
+    spec:
+      containers:
+        - name: code-server
+          image: codercom/code-server:latest
+          args:
+            - --bind-addr
+            - 0.0.0.0:8080
+            - --auth
+            - password
+          env:
+            - name: PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: code-server-secret
+                  key: password
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: workspace
+              mountPath: /home/coder/project
+      volumes:
+        - name: workspace
+          persistentVolumeClaim:
+            claimName: code-server-pvc
