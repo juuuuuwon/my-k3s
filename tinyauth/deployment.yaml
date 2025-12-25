@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tinyauth
+  labels:
+    app: tinyauth
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tinyauth
+  template:
+    metadata:
+      labels:
+        app: tinyauth
+    spec:
+      containers:
+        - name: tinyauth
+          image: ghcr.io/steveiliop56/tinyauth:v4
+          ports:
+            - containerPort: 3000
+          env:
+            - name: APP_URL
+              value: "http://auth.juuuwon.me"
+            - name: USERS
+              value: juuuwon2:$2a$12$yeqLNgDtslWnO./JRuguauvo9GLfSuQ3CiLPAu7Si6pjSeC0dkcwy
+          livenessProbe:
+            httpGet:
+              path: /api/healthcheck
+              port: 3000
+          readinessProbe:
+            httpGet:
+              path: /api/healthcheck
+              port: 3000
