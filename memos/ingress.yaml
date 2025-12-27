@@ -6,8 +6,8 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
     traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
     traefik.ingress.kubernetes.io/router.middlewares: |
-      my-namespace-auth-signin-redirect@kubernetescrd,
-      my-namespace-tinyauth-forward-auth@kubernetescrdspec:
+      tinyauth-tinyauth-redirect@kubernetescrd,
+      tinyauth-tinyauth@kubernetescrdspec:
   ingressClassName: traefik
   rules:
   - host: note.juuuwon.me
