@@ -1,20 +1,20 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: memos
+  name: tinyauth
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
     traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
 spec:
   ingressClassName: traefik
   rules:
-  - host: note.juuuwon.me
+  - host: auth.juuuwon.me
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: memos
+            name: tinyauth
             port:
-              number: 5230
+              number: 3000
