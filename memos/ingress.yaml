@@ -8,6 +8,7 @@ metadata:
     traefik.ingress.kubernetes.io/router.middlewares: |
       tinyauth-tinyauth-redirect@kubernetescrd,
       tinyauth-tinyauth@kubernetescrd:
+spec:
   ingressClassName: traefik
   rules:
   - host: note.juuuwon.me
