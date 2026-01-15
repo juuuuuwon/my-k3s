@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stackedit
+  labels:
+    app: stackedit
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: stackedit
+  template:
+    metadata:
+      labels:
+        app: stackedit
+    spec:
+      containers:
+        - name: stackedit
+          image: benweet/stackedit:latest
+          ports:
+            - containerPort: 8080
